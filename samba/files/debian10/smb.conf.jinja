@@ -167,6 +167,27 @@
 # public shares, not just authenticated ones
    usershare allow guests = {{ global.get('usershare_allow_guests', 'yes') }}
 
+### Custom Global Options
+{%- for option, value in global|dictsort %}
+{%- if option not in [
+    'workgroup',
+    'log_file',
+    'max_log_file',
+    'logging',
+    'panic_action',
+    'server_role',
+    'obey_pam_restrictions',
+    'unix_password_sync',
+    'passwd_program',
+    'passwf_chat',
+    'pam_password_change',
+    'map_to_guest',
+    'usershare_allow_guests',
+] %}
+   {{ option }} = {{ value }}
+{%- endif %}
+{%- endfor %}
+
 #======================= Share Definitions =======================
 
 [homes]
